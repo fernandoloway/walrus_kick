@@ -1,0 +1,56 @@
+<% include partial/html_head.ejs %>
+</head>
+
+<body>
+    <% include partial/navbar.ejs %>
+
+    <div class="container-fluid">
+      <div class="row">
+        <% include partial/dashboard_sidebar_item.ejs %>
+
+        <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+          <h2>Daftar Item</h2>
+          <a href="/dashboard-item-new" role="button" class="btn btn-outline-success btn-sm ml-0 my-2" >+ Tambah Item </a>  
+
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Nama Produk</th>
+                  <th>Season</th>
+                  <th>Kategori</th>
+                  <th>Warna</th>
+                  <th>Size</th>
+                  <th>Persediaan</th>
+                  <th>Updated</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+              <% data.forEach (x => { %>
+                <tr class="clickable-row" data-href="/dashboard-item-edit/<%=x.ProductId%>">
+                  <td><%= x.productname %></td>
+                  <td><%= x.seasonalctgname %></td>
+                  <td><%= x.productctgname %></td>
+                  <td><a href="/dashboard-item-changecolorname/<%=x.ProductColorId%>"><%= x.color %></a></td>
+                  <td><%= x.size %></td>
+                  <td><a href="/dashboard-item-stock-input/<%=x.ProductId%>"><%= x.stocks %></a></td>
+                  <td><%   if (x.upddate !== null){ %>
+                        <%=x.upddate.toLocaleString()%>
+                    <%} %></td>
+                  <td><a href="/dashboard-itemsize-delete/<%=x.ProductId%>/<%=x.ProductColorId%>/<%=x.ProductDtId%>" role="button" class="btn btn-outline-danger btn-sm" >Hapus </a></td>
+                </tr>
+              <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <% include partial/libs_location.ejs %>
+    <% include partial/script_clickable_row.ejs %>
+</body>
+</html>
+
+<script>

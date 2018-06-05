@@ -1,0 +1,15 @@
+    <script>
+        $(document).ready(function() {
+            // get current URL path and assign 'active' class
+            var pathname = window.location.pathname;
+            $('li > a[href="'+pathname+'"]').addClass('active');
+            var SeasonName = $("#SeasonName").html(); 
+            // console.log(x)
+            var seasonStringNow=SeasonName.replace(/\s/g, '')
+            $('#'+seasonStringNow).addClass('show');
+
+            var CategoryId=$("#CategoryId").html(); 
+            $('li > a[href="/category/'+CategoryId+'"]').addClass('active');
+
+        })
+    </script>

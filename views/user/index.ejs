@@ -1,0 +1,50 @@
+<% include partial/html_head.ejs %>
+<link href="css/productCard.css" rel="stylesheet">
+</head>
+
+<body>
+    <% include partial/navbar.ejs %>
+
+    <div class="container-fluid" id="container">
+      <div class="row">
+        <% include partial/user_sidebar.ejs %>
+
+        <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+            <h1 id="SeasonName"><%=category.SeasonalCtgName%></h1>
+            <h2><%=category.ProductCtgName%></h2>
+            <div class="row">
+                <% data[1].forEach (x => { %>
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow productCard">
+                            <a href="/product/<%=x.productId%>">
+                                <img class="card-img-top" src="img/<%=x.ProductImgName%>" alt="gambar produk"/>
+                                <div class="card-body">
+                                    <h5 class="card-title"><%=x.productName%></h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">IDR <%=x.CurrPrice%></h6>
+                                </div>
+                            </a>
+                            <p class="card-text"></p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">Tandai</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">Beli</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+ 
+        </main>
+      </div>
+    </div>
+
+
+    <% include partial/libs_location.ejs %>
+    <% include partial/script_clickable_row.ejs %>
+    <% include partial/script_changeActiveNavbar.ejs %>
+    <% include partial/script_handleActiveSidebar.ejs %>
+
+
+</body>
+</html>

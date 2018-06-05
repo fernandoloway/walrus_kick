@@ -1,0 +1,76 @@
+<% include partial/html_head.ejs %>
+</head>
+
+<body>
+    <% include partial/navbar.ejs %>
+
+    <div class="container-fluid">
+
+        <main class="col-sm-9 col-md-10 pt-3">
+            <h2>Cart :</h2>&nbsp;
+            <form method="POST" action="/cart">
+
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th class="col-sm-12 col-md-2">Product Name</th>
+                            <th class="col-sm-12 col-md-1">Color</th>
+                            <th class="col-sm-12 col-md-1">Size</th>
+                            <th class="col-sm-12 col-md-1">Price</th>
+                            <th class="col-sm-12 col-md-1">Quantity</th>
+                            <th class="col-sm-12 col-md-1">Stocks</th>
+                            <th class="col-sm-12 col-md-1">Subtotal</th>
+                            <th class="col-sm-12 col-md-1"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% var total=0 %>
+                        <% data.forEach (x => { %>
+                        
+                        <% var notif='Stock-OK' ; var badge='success'; if(x.Stocks==0) {notif="Sorry, item is out of stock"; badge="danger"} else if (x.Quantity > x.Stocks){notif="quantity > stock"; badge="danger"}%>
+                        
+                            <tr key="<%=x.CartId%>">
+                                <td><%= x.ProductName %></td>
+                                <td><%= x.Color %></td>
+                                <td><%= x.Size %></td>
+                                <td>IDR <%=x.CurrPrice%></td>
+                                <td>
+                                    <input type="hidden" value="<%=x.CartId%>" name="cart[id]"/>
+                                    <input type="number" class="form-control" value="<%=x.Quantity%>" name="product[quantity]" max='<%=x.Stocks%>' min='0'/> 
+                                </td>
+                                <td><%=x.Stocks%><span class="badge badge-<%=badge%> float-right align-middle" style="display: show"><%=notif%></span></td>
+                                <td><%=x.Quantity*x.CurrPrice%>
+                                <td><a href="/cart-delete/<%=x.CartId%>" role="button" class="btn btn-outline-danger btn-sm" >Hapus </a></td>
+                            </tr>
+                        <% total+=(x.Quantity*x.CurrPrice) %>
+                        <% }) %>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td style="text-align:right">Total : &nbsp;&nbsp;IDR</td>
+                                <td><%=total%></td>
+                                <td>
+                            </tr>
+                    </tbody>
+                </table>
+
+
+                <button class="btn btn-secondary" type="button" onclick="javascript:history.back()">Batal</button>
+                <button class="btn btn-primary" type="submit" >Next    </button>
+
+            </form>
+        </main>
+
+
+    </div>
+
+    <% include partial/libs_location.ejs %>
+    <% include partial/script_changeActiveNavbar.ejs %>
+
+
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+<% include partial/html_head.ejs %>
+<link href="css/productCard.css" rel="stylesheet">
+</head>
+
+<body>
+    <% include partial/navbar.ejs %>
+
+    <div class="container-fluid" id="container">
+      <div class="row">
+        <% include partial/user_sidebar.ejs %>
+
+        <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+            <h1 style="display:none;" id="SeasonName"><%=data[1][0].SeasonalCtgName%></h1>
+            <h2 style="display:none;" id="CategoryId"><%=data[1][0].ProductCtgId%></h2>
+
+            <div class="container">
+
+
+                <hr class="featurette-divider" />
+
+                <div class="row featurette">
+                    <div class="col-md-5">
+                        <img class="featurette-image" src="/img/<%=data[1][0].ProductImgName%>" alt="gambar produk" />
+                    </div>
+                    <div class="col-md-7">
+                        <h2 class="featurette-heading"><%=data[1][0].ProductName%></h2>
+                        <p class="text-muted">IDR <%=data[1][0].CurrPrice%></p>
+                        <p class="lead"><%=data[1][0].ProductDesc%></p>
+                
+                            <form method="POST" action="/product/<%=data[1][0].ProductId%>">
+                                <div class="row">
+                                    <div class="form-group col-md-3">
+
+       
+                                        <div class="btn-group-vertical btn-group-sm" data-toggle="buttons">
+                                            <p>Color:</p>
+                                            <% data[2].forEach (x => { %>
+                                            <label class="btn btn-secondary">
+                                                <input type="radio" name="selectedColor" id="color<%=x.id%>" value="<%=x.id%>" required> <%=x.color%>
+                                            </label>
+                                            <% }) %>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="form-group col-md-3">
+
+                                        <p>Size:</p>
+                                       <div class="btn-group btn-group-sm" data-toggle="buttons">
+                                            <% data[3].forEach (x => { %>
+                                            <label class="btn btn-secondary">
+                                                <input type="radio" name="selectedSize" id="<%=x.Size%>" value="<%=x.Size%>" required> &nbsp;<%=x.Size%>&nbsp;
+                                            </label>
+                                            <% }) %>
+                                        </div>
+
+                                    </div>
+ 
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-7">
+                                    <div class="alert alert-<%=notifstatus%>" style="display:<%=notifdisplay%>;">
+                                        <%=notif%>
+                                    </div>
+                                        <button class="btn btn-outline-primary btn-block" type="submit" >+ Add to Cart</button>
+                                    </div>
+                                </div>
+
+
+
+
+                            </form>
+                 
+
+                    </div>
+                </div>
+
+            </div>
+ 
+        </main>
+      </div>
+    </div>
+
+    <% include partial/libs_location.ejs %>
+    <% include partial/script_changeActiveNavbar.ejs %>
+    <% include partial/script_handleActiveSidebar.ejs %>
+    // <script>
+    // document.form.submit.click()
+    // setTimeout(function(){ 
+    //     window.stop() 
+    // }, 3000);
+    // </script>
+
+
+</body>
+</html>

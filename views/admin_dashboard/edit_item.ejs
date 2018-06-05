@@ -1,0 +1,112 @@
+<% include partial/html_head.ejs %>
+<link href="css/new_item.css" rel="stylesheet">
+</head>
+
+<body>
+    <% include partial/navbar.ejs %>
+
+    <div class="container-fluid">
+      <div class="row">
+        <% include partial/dashboard_sidebar_item.ejs %>
+
+        <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+            <form method="POST" action="/update/item/<%=data[0][0].id%>">
+
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label for="NewItemName">Item Name</label>
+                        <input type="text" class="form-control" id="NewItemName" name="NewItemName" value="<%=data[0][0].productname%>"required>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="ProductCategory">Select Category</label>
+                        <select class="form-control" id="SelectedProductCtg" name="SelectedProductCtg">
+                            <option value="<%=data[0][0].productctgid%>"><%=data[0][0].productctgname+" - "+data[0][0].seasonalctgname%></option>
+                            <% data[1].forEach (x => { %>
+                
+                             <option value="<%=x.productctgid%>"><%= x.productctgname+" - "+ x.seasonalctgname %></option>
+                            
+                            <% }) %>
+            
+                        </select>
+                    </div>
+                    
+                </div>
+
+                <div class="form-group row">
+                    <label for="Price" class="col-sm-1 col-form-label">Price</label>
+                    <div class="col-sm-2">
+                    <input type="number" class="form-control" id="Price" name="Price" value="<%=data[0][0].currprice%>" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-8">
+                        <label for="ProductDescription">Product Description</label>
+                        <textarea class="form-control" id="ProductDescription" name="ProductDescription" rows="3"><%=data[0][0].productdesc%></textarea>
+                    </div>
+                </div>
+                <div class="row">
+
+
+                    <div class="form-group form-group-options col-xs-11 col-sm-8 col-md-4">
+                        <% data[2].forEach (x => { %>
+                        <div class="input-group input-group-option col-xs-12">
+                            <input type="text" name="currentColor" class="form-control" value="<%=x.color%>" readonly>
+
+                        </div>
+                        <% }) %>
+                        <div class="input-group input-group-option col-xs-12">
+                            <input type="text" name="newColor" class="form-control" placeholder="Color">
+                            <span class="input-group-addon input-group-addon-remove">
+                                x
+                            </span>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group form-group-options col-xs-11 col-sm-8 col-md-4">
+                        <% data[3].forEach (x => { %>
+                        <div class="input-group input-group-option col-xs-12">
+                            <input type="text" name="currentSize" class="form-control" value="<%=x.size%>" readonly>
+                        </div>
+                        <% }) %>
+                       <div class="input-group input-group-option col-xs-12">
+                            <input type="text" name="newSize" class="form-control" placeholder="Size">
+                            <span class="input-group-addon input-group-addon-remove">
+                                x
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-secondary" type="button" onclick="javascript:history.back()">Batal</button>
+                <button class="btn btn-primary" type="submit" >Simpan</button>
+
+            </form>
+        </main>
+      </div>
+    </div>
+
+    <% include partial/libs_location.ejs %>
+    <script>
+
+        $(function(){
+            
+            $(document).on('focus', 'div.form-group-options div.input-group-option:last-child input', function(){
+                
+                var sInputGroupHtml = $(this).parent().html();
+                var sInputGroupClasses = $(this).parent().attr('class');
+                $(this).parent().parent().append('<div class="'+sInputGroupClasses+'">'+sInputGroupHtml+'</div>');
+                
+            });
+            
+            $(document).on('click', 'div.form-group-options .input-group-addon-remove', function(){
+                
+                $(this).parent().remove();
+                
+            });
+            
+        });
+
+    </script>
+</body>
+</html>

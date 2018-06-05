@@ -1,0 +1,47 @@
+<% include partial/html_head.ejs %>
+</head>
+
+<body>
+    <% include partial/navbar.ejs %>
+
+    <div class="container-fluid" id="container">
+      <div class="row">
+        <% include partial/dashboard_sidebar_season.ejs %>
+
+        <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+          <h2>Daftar Season</h2>
+          <a href="/dashboard-season-new" role="button" class="btn btn-outline-success btn-sm ml-0 my-2" >+ Tambah Season </a>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead> 
+                <tr>
+                  <th>Seasonal Category</th>
+                  <th>Jumlah Kategori Produk</th>
+                  <th>Jumlah Produk</th>
+                  <th>Created</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+              <% data.forEach (x => { %>
+                <tr class="clickable-row" data-href="/dashboard-season-edit/<%=x.id%>">
+                  <td><%= x.seasonalctgname %></td>
+                  <td><%= x.n_ctg %></td>
+                  <td><%= x.n_prod %></td>
+                  <td><%= x.createdate.toLocaleString() %></td>
+                  <td><a href="/dashboard-season-delete/<%=x.id%>" role="button" class="btn btn-outline-danger btn-sm" >Hapus </a></td>
+                </tr>
+              <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </main>
+      </div>
+    </div>
+
+
+    <% include partial/libs_location.ejs %>
+    <% include partial/script_clickable_row.ejs %>
+
+</body>
+</html>

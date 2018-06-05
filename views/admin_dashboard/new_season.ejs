@@ -1,0 +1,27 @@
+<% include partial/html_head.ejs %>
+</head>
+
+<body>
+    <% include partial/navbar.ejs %>
+
+    <div class="container-fluid">
+      <div class="row">
+        <% include partial/dashboard_sidebar_season.ejs %>
+
+        <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+            <form method="POST" action="/insert/season">
+                <div class="form-group">
+                    <label for="newseasonalctgname">New Seasonal Category</label>
+                    <input type="text" class="form-control" id="newseasonalctgname" name="newseasonalctgname" placeholder="Winter 2020" required>
+                </div>
+                <button class="btn btn-secondary" type="button" onclick="javascript:history.back()">Batal</button>
+                <button class="btn btn-primary" type="submit" >Simpan</button>
+            </form>
+
+        </main>
+      </div>
+    </div>
+
+    <% include partial/libs_location.ejs %>
+</body>
+</html>

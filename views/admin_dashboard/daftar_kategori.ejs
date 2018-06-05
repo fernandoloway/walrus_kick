@@ -1,0 +1,47 @@
+<% include partial/html_head.ejs %>
+</head>
+
+<body>
+    <% include partial/navbar.ejs %>
+
+    <div class="container-fluid">
+      <div class="row">
+        <% include partial/dashboard_sidebar_kategori.ejs %>
+
+        <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+          <h2>Kategori Produk</h2>
+          <a href="/dashboard-category-new" role="button" class="btn btn-outline-success btn-sm ml-0 my-2" >+ Tambah Kategori </a>
+         
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Product Category</th>
+                  <th>Season</th>
+                  <th>Jumlah Produk</th>
+                  <th>Created</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+              <% data.forEach (x => { %>
+                <tr class="clickable-row" data-href="/dashboard-category-edit/<%=x.id%>">
+                  <td><%= x.productctgname %></td>
+                  <td><%= x.seasonalctgname %></td>
+                  <td><%= x.num %></td>
+                  <td><%= x.createdate.toLocaleString() %></td>
+                  <td><a href="/dashboard-category-delete/<%=x.id%>" role="button" class="btn btn-outline-danger btn-sm" >Hapus </a></td>
+                </tr>
+              <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </main>
+      </div>
+    </div>
+
+
+    <% include partial/libs_location.ejs %>
+    <% include partial/script_clickable_row.ejs %>
+</body>
+</html>

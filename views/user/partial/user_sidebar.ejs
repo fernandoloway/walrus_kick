@@ -1,0 +1,41 @@
+<nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
+
+                
+    <div id="accordion">
+    <% season.forEach (x => { %>
+    <% let seasonString=x.replace(/\s/g, ''); %>
+        <div class="card">
+            <div class="card-header" id="heading<%=seasonString%>">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#<%=seasonString%>" aria-expanded="true" aria-controls="collapse<%=seasonString%>">
+                        <%=x%>
+                    </button>
+                </h5>
+            </div>
+
+            <div id="<%=seasonString%>" class="collapse" aria-labelledby="heading<%=seasonString%>" data-parent="#accordion">
+                <div class="card-body">
+
+                    <ul class="nav nav-pills flex-column">
+                    <% data[0].forEach (y => { %>
+                    <% if (x===y.SeasonalCtgName) { %>
+                        <li class="nav-item">
+                            <a class="nav-link sidebarCategory" href="/category/<%=y.productctgid%>"><%=y.ProductCtgName%></a>
+                        </li>
+                    <% } %>
+                    <% }) %>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    <% }) %>
+
+
+    </div>
+
+
+
+
+
+</nav>

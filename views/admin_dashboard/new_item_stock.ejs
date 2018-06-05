@@ -1,0 +1,72 @@
+<% include partial/html_head.ejs %>
+<link href="css/new_item.css" rel="stylesheet">
+</head>
+
+<body>
+    <% include partial/navbar.ejs %>
+
+    <div class="container-fluid">
+      <div class="row">
+        <% include partial/dashboard_sidebar_item.ejs %>
+
+        <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+            <form method="POST" action="/update/item_stock">
+
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th class="col-sm-12 col-md-3">Product Name</th>
+                            <th class="col-sm-12 col-md-2">Color</th>
+                            <th class="col-sm-12 col-md-2">Size</th>
+                            <th class="col-sm-12 col-md-1">Stock</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% data.forEach (x => { %>
+                            <tr key="<%=x.ProductDtId%>">
+                                <td><%= x.productname %></td>
+                                <td><%= x.color %></td>
+                                <td><%= x.size %></td>
+                                <td>
+                                    <input type="hidden" value="<%=x.ProductDtId%>" name="product[id]"/>
+                                    <input type="number" class="form-control" value="<%=x.stocks%>" name="product[stock]"/>
+                                </td>
+                            </tr>
+                        <% }) %>
+
+                    </tbody>
+                </table>
+
+
+                <button class="btn btn-secondary" type="button" onclick="javascript:history.back()">Batal</button>
+                <button class="btn btn-primary" type="submit" >Simpan</button>
+
+            </form>
+        </main>
+      </div>
+    </div>
+
+    <% include partial/libs_location.ejs %>
+    <script>
+
+        $(function(){
+            
+            $(document).on('focus', 'div.form-group-options div.input-group-option:last-child input', function(){
+                
+                var sInputGroupHtml = $(this).parent().html();
+                var sInputGroupClasses = $(this).parent().attr('class');
+                $(this).parent().parent().append('<div class="'+sInputGroupClasses+'">'+sInputGroupHtml+'</div>');
+                
+            });
+            
+            $(document).on('click', 'div.form-group-options .input-group-addon-remove', function(){
+                
+                $(this).parent().remove();
+                
+            });
+            
+        });
+
+    </script>
+</body>
+</html>

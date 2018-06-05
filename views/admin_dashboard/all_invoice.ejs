@@ -1,0 +1,52 @@
+<% include partial/html_head.ejs %>
+</head>
+
+<body>
+    <% include partial/navbar.ejs %>
+
+    <div class="container-fluid" id="container">
+      <div class="row">
+        <% include partial/dashboard_sidebar_season.ejs %>
+
+        <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+          <h2>Daftar Invoice</h2>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead> 
+                <tr>
+                  <th>Invoice Date</th>
+                  <th>Recipient Name</th>
+                  <th>Phone</th>
+                  <th>Total Price</th>
+                  <th>Full Address</th>
+                  <th>Provinsi</th>
+                  <th>Kabupaten</th>
+                  <th>Kode Pos</th>
+                </tr>
+              </thead>
+              <tbody>
+              <% data.forEach (x => { %>
+                <tr class="clickable-row" data-href="/dashboard-invoice-detail/<%=x.id%>">
+                  <td><%= x.InvoiceDate %></td>
+                  <td><%= x.RecipientName %></td>
+                  <td><%= x.RecPhone %></td>
+                  <td><%= x.TotalPrice %></td>
+                  <td><%= x.FullAddress %></td>
+                  <td><%= x.Provinsi %></td>
+                  <td><%= x.Kabupaten %></td>
+                  <td><%= x.KodePos %></td>
+                </tr>
+              <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </main>
+      </div>
+    </div>
+
+
+    <% include partial/libs_location.ejs %>
+    <% include partial/script_clickable_row.ejs %>
+
+</body>
+</html>

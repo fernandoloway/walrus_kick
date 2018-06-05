@@ -1,0 +1,41 @@
+<% include partial/html_head.ejs %>
+</head>
+
+<body>
+    <% include partial/navbar.ejs %>
+
+    <div class="container-fluid">
+      <div class="row">
+        <% include partial/dashboard_sidebar_kategori.ejs %>
+
+        <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+            <form method="POST" action="/insert/category">
+
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label for="newproductctgname">New Product Category</label>
+                        <input type="text" class="form-control" id="newproductctgname" name="newproductctgname" placeholder="Tops" required>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="SeasonalCtgName">Select Season</label>
+                        <select class="form-control" id="SeasonalCtgName" name="SelectedSeasonalCtg" required>
+                            <% data.forEach (x => { %>
+                                
+                             <option value="<%=x.id%>"><%= x.seasonalctgname %></option>
+                            
+                            <% }) %>
+            
+                        </select>
+                    </div>
+                </div>
+
+                <button class="btn btn-secondary" type="button" onclick="javascript:history.back()">Batal</button>
+                <button class="btn btn-primary" type="submit" >Simpan</button>
+            </form>
+        </main>
+      </div>
+    </div>
+
+    <% include partial/libs_location.ejs %>
+</body>
+</html>
